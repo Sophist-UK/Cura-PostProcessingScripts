@@ -30,7 +30,7 @@ and because these extremely small segments can be printed in a very short time, 
 So this script is best used in conjunction with the Mesh Enhancements.
 
 The scripts can be found [in the gCodePerMin directory](https://github.com/Sophist-UK/Cura-PostProcessingScripts/tree/master/gCodePerSec) above.
-Download the gCodePerSec.py file and store it in the `scripts` subdirectory of the directory opened using  
+Download the gCodePerSec.py file and store it in the `scripts` subdirectory of the directory opened using
 the Cura menu item Help / Show Configuration Folder.
 
 The script has the following settings:
@@ -73,7 +73,7 @@ As a test of the newly written script, I printed a 5cm ring (saved as a high-res
 
 Without either enhancement, as expected there was a lot of stuttering, and the resulting oozing created many significant surface imperfection "zits".
 
-Running just the gCodePerSec script, the printer ran at the Minmum Speed setting of 10mm/s almost full time. The surface quality was significantly better, 
+Running just the gCodePerSec script, the printer ran at the Minimum Speed setting of 10mm/s almost the whole time. The surface quality was significantly better, 
 but still not as good as it could have been, but the print time was greatly extended.
 
 With Max Resolution (1mm) / Max Deviation (0.05mm), but without gCodePerSec, the print was both fast and high quality. 
@@ -85,10 +85,10 @@ Running with both the above Max Resolution / Max Deviation settings and gCodePer
 improved the surface quality still further, however in practice the almost unnoticeable stuttering was replaced by highly variable print speeds 
 where a short segment (which was slowed) was bracketed by longer segments that ran at full speed, and this actually resulted in slightly lower print quality.
 
-This version of the script has been provided here for others to experiment with depsite these results.
+This version of the script has been provided here for others to experiment with despite these results.
 
 **Conclusion:** The algorithm needs improving for v0.2.0 to take into account that the 
-firware accepts more than a single gCode instruction in advance of the currently printing one, 
+firmware accepts more than a single gCode instruction in advance of the currently printing one, 
 and taking advantage of this to smooth out the print speed changes between segments. 
 (Detailed algorithm yet to be decided.)
 
