@@ -30,7 +30,7 @@ So this script is best used in conjuction with the Mesh Enhancements.
 
 The scripts can be found [here](https://github.com/Sophist-UK/Cura-PostProcessingScripts/tree/master/gCodePerSec).
 **Download the gCodePerSec.py file and store it in the `scripts` subdirectory of the directory opened using  
-the Cura meni item Help / Show Configuration Folder.**
+the Cura menu item Help / Show Configuration Folder.**
 
 The script has the following settings:
 
