@@ -44,8 +44,8 @@ this can make the gCode file substantially bigger.
 * **Debug** - The number of layers for which gCodePerSec should give detailed debugging information in the Cura Log for any changes it makes.
 
 ### Version history
-v0.1.0 - Initial version using a simple approach considering only G0 and G1 line segments and considering them singly in isolation from surrounding gCode.
-Because it doesn't consdier surrounding gCode a short line segment between two longer line segments can result is rapid and repeated slow-down/speed-up 
+**v0.1.0** - Initial version using a simple approach considering only G0 and G1 line segments and considering them singly in isolation from surrounding gCode.
+Because it doesn't consider surrounding gCode a short line segment between two longer line segments can result is rapid and repeated slow-down/speed-up 
 which is detrimental to print quality compared to a more averaged approach. 
 
 ### Determining the *Maximum per Second* setting
@@ -70,7 +70,7 @@ As a test of the newly written script, I printed a 5cm ring (saved as a high-res
 * **With** Max Resolution / Max Deviation and without gCodePerSec
 * **With** Max Resolution / Max Deviation and **with** gCodePerSec
 
-Without either enhancement, as expected there was a lot of stuttering, and the resulting oozing created many significant surface imperfections "zits".
+Without either enhancement, as expected there was a lot of stuttering, and the resulting oozing created many significant surface imperfection "zits".
 
 Running just the gCodePerSec script, the printer ran at the Minmum Speed setting of 10mm/s almost full time. The surface quality was significantly better, 
 but still not as good as it could have been, but the print time was greatly extended.
