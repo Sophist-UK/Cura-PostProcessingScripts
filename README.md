@@ -2,7 +2,7 @@
 
 This is a repository of Cura PostProcessings scripts written or modified by Sophist.
 
-## gCodePerSec
+## gCodePerSec script
 Many 3D printers have gCode processors which are of limited computing power, or which have limited bandwidth for 
 accepting instructions from network or USB communications from e.g. Octoprint or Cura USB drivers -
 particularly those Printers whose firmware runs on 8-bit processors (like mines). 
@@ -91,7 +91,7 @@ firware accepts more than a single gCode instruction in advance of the currently
 and taking advantage of this to smooth out the print speed changes between segments. 
 (Detailed algorithm yet to be decided.)
 
-## Hot and Cold
+## Hot and Cold script
 This script is still in the early stages of development. It is predicated on the following rules of thumb:
 
 1. You get better surface quality, and better bridginbg and overhangs, 
