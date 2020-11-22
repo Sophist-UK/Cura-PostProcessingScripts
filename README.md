@@ -5,7 +5,7 @@ This is a repository of Cura PostProcessings scripts written or modified by Soph
 ## gCodePerSec script
 Many 3D printers have gCode processors which are of limited computing power, or which have limited bandwidth for 
 accepting instructions from network or USB communications from e.g. Octoprint or Cura USB drivers -
-particularly those Printers whose firmware runs on 8-bit processors (like mines). 
+particularly those Printers whose firmware runs on 8-bit processors (like mine). 
 As a consequence when Cura tries to print curves using hundreds or even thousands of very small straight line 
 segments, the printer cannot receive the gCode instructions fast enough, and it stutters - 
 and when it stutters, molten filament can ooze from the print head leading to blobs or "zits" or other quality issues. 
