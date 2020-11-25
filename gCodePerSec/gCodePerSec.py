@@ -11,6 +11,7 @@
 
 # History / Change log:
 # v0.1.0:   Initial version for trial
+# v0.1.1:   Added helper functions for settings
 
 # Note 1: This initial version will look at individual instructions rather than assessing groups of instructions.
 #         So e.g. a single short segment may be slowed down even though it is surrounded by longer segments and would not normally cause an issue.
@@ -32,7 +33,7 @@
 #         and if / when we implement a smoothing algorithm (e.g. to avoid big changes in feedrate) then this will be taken into account.
 
 #import re
-from typing import List
+from typing import Any, List
 from math import sqrt, floor
 from datetime import timedelta
 
@@ -108,6 +109,37 @@ class gCodePerSec(Script):
             }
         }""")
 
+    def getSettingProperty(self, key: str, prop: str) -> Any:
+        """Convenience function that retrieves a specified attribute of a setting from the stack."""
+
+        if self._stack is None:
+            Logger.log("e", "gCodePerSec: getSettingProperty: Unable to get stack.")
+            return None
+
+        result = self._stack.getProperty(key, prop)
+        if result is None:
+            Logger.log("e", "gCodePerSec: getSettingProperty: Failed to get " + key + "." + prop + ".")
+        return result
+
+    def getSettingValueByKey(self, key: str) -> Any:
+        """Convenience function that retrieves a specified attribute of a setting from the stack."""
+
+        return self.getSettingProperty(key, "value")
+
+    def setSettingProperty(self, key: str, prop: str, value: Any) -> bool:
+        """Convenience method that sets the attrribute of a setting on the stack."""
+
+        if self._instance is None:
+            Logger.log("e", "gCodePerSec: setSettingProperty: Unable to get instance.")
+            return False
+
+        self._instance.setProperty(key, prop, value)
+
+        if self.getSettingProperty(key, prop) != value:
+            Logger.log("e", "gCodePerSec: setSettingProperty: Failed to set " + key + "." + prop + " to " + str(value) + ".")
+            return False
+        return True
+
     def initialize(self) -> None:
         super().initialize()
         Logger.log("d", "gCodePerSec: initialize called.")
@@ -117,9 +149,6 @@ class gCodePerSec(Script):
         global_container_stack = Application.getInstance().getGlobalContainerStack()
         if global_container_stack is None:
             Logger.log("e", "gCodePerSec: getSettingDataString: Unable to get global container stack.")
-            return
-        if self._instance is None:
-            Logger.log("e", "gCodePerSec: getSettingDataString: Unable to get instance.")
             return
 
         machine_minimum_feedrate  = global_container_stack.getProperty("machine_minimum_feedrate", "value")
@@ -131,16 +160,13 @@ class gCodePerSec(Script):
         Logger.log("d", "gCodePerSec: cool_min_speed = " + str(cool_min_speed))
         Logger.log("d", "gCodePerSec: minPrintSpeed_default = " + str(minPrintSpeed_default))
 
-        # self._instance.setProperty("minPrintSpeed", "minimum_value_warning", minPrintSpeed_default)
-        # Logger.log("d", "gCodePerSec: minPrintSpeed minimum_value_warning = " + str(minPrintSpeed_default))
+        Logger.log("d", "gCodePerSec: minPrintSpeed minimum_value_warning = " + str(minPrintSpeed_default))
         # At the time of writing, saving the minimum_value_warning doesnt work.
-        # Logger.log("d", "gCodePerSec: minPrintSpeed minimum_value_warning setting worked = " + str(minPrintSpeed_default == self._instance.getProperty("minPrintSpeed", "minimum_value_warning")))
-        self._instance.setProperty("minPrintSpeed", "minimum_value", minPrintSpeed_default)
-        Logger.log("d", "gCodePerSec: minPrintSpeed minimum_value = " + str(minPrintSpeed_default))
-        # At the time of writing, saving the minimum_value_warning doesnt work.
-        Logger.log("d", "gCodePerSec: minPrintSpeed minimum_value setting worked = " + str(minPrintSpeed_default == self._instance.getProperty("minPrintSpeed", "minimum_value")))
+        self.setSettingProperty("minPrintSpeed", "minimum_value_warning", minPrintSpeed_default)
+        #Logger.log("d", "gCodePerSec: minPrintSpeed minimum_value = " + str(minPrintSpeed_default))
+        #self.setSettingProperty("minPrintSpeed", "minimum_value", minPrintSpeed_default)
         if self.getSettingValueByKey("minPrintSpeed") == 0.0: # Default and invalid value
-            self._instance.setProperty("minPrintSpeed", "value", minPrintSpeed_default)
+            self.setSettingProperty("minPrintSpeed", "value", minPrintSpeed_default)
             Logger.log("d", "gCodePerSec: minPrintSpeed value = " + str(minPrintSpeed_default))
 
     def execute(self, data: List[str]) -> List[str]:
@@ -158,9 +184,6 @@ class gCodePerSec(Script):
         global_container_stack = Application.getInstance().getGlobalContainerStack()
         if global_container_stack is None:
             Logger.log("e", "gCodePerSec: getSettingDataString: Unable to get global container stack.")
-            return
-        if self._instance is None:
-            Logger.log("e", "gCodePerSec: getSettingDataString: Unable to get instance.")
             return
 
         machine_minimum_feedrate  = global_container_stack.getProperty("machine_minimum_feedrate", "value")
